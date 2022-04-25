@@ -38,16 +38,14 @@ async function createConsumer(){
         const consumer = kafka.consumer({
             groupId: "bills-consumer-group"
         })
-        console.log("Consumer is connecting.")
         await consumer.connect();
-        console.log("Consumer is connected.")
         await consumer.subscribe({
             topic: topic, 
             fromBeginning: true
         });
         await consumer.run({
             eachMessage:  async result => { 
-                console.log('Coming Message key : ',result.message.key.toString('utf8'),' value : ',result.message.value.toString('utf8'),' Partition : ',result.partition) ;
+                console.log('Consumer key : ',result.message.key.toString('utf8'),' value : ',result.message.value.toString('utf8'),' Partition : ',result.partition) ;
             }
         });
 

@@ -16,11 +16,11 @@ const sendMessage = async (producer, topic) => {
 				messages: [
 					{
 						key: String(i),
-						value: "this is message " + i,
+						value: "Producer message is " + i,
 					},
 				],
 			})
-			console.log("writes: ", i, ": this is message " + i)
+			console.log("Producer : ", i, "Producer message is " + i)
 			i++
 		} catch (err) {
 			console.error("could not write message " + err)
