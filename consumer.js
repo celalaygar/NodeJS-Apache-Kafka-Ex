@@ -1,42 +1,19 @@
 
 const { Kafka } = require("kafkajs")
-
-
-
-// async function createConsumer() {
-//     const clientId = "my-app"
-//     const brokers = ["localhost:9092"]
-//     const topic = "message-log"
-//     const kafka = new Kafka({ clientId, brokers })
-
-//     const consumer = kafka.consumer({
-//         groupId: "bills-consumer-group"
-//     })
-//     consumer.run({
-//         eachMessage: async ({ message }) => {
-//             try {
-//                 const jsonObj = JSON.parse(message.value.toString())
-//                 console.log(jsonObj)
-
-//             } catch (error) {
-//                 console.log('err=', error)
-//             }
-//         }
-//     })
-// }
+const config = require('./config')
 
 
 createConsumer();
  
 async function createConsumer(){
     try { 
-        const clientId = "my-app"
-        const brokers = ["localhost:9092"]
-        const topic = "message-log"
+        const clientId = config.kafka.CLIENTID
+        const brokers = config.kafka.BROKERS
+        const topic = config.kafka.TOPIC
         const kafka = new Kafka({ clientId, brokers })
-    
+        
         const consumer = kafka.consumer({
-            groupId: "bills-consumer-group"
+            groupId: config.kafka.GROUPID
         })
         await consumer.connect();
         await consumer.subscribe({

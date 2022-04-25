@@ -1,4 +1,5 @@
 const { Kafka } = require("kafkajs")
+const config = require('./config')
 
 
 const sendMessage = async (producer, topic) => {
@@ -20,7 +21,7 @@ const sendMessage = async (producer, topic) => {
 					},
 				],
 			})
-			console.log("Producer : ", i, "Producer message is " + i)
+			console.log("Producer : ", i, " Producer message is " + i)
 			i++
 		} catch (err) {
 			console.error("could not write message " + err)
@@ -28,9 +29,9 @@ const sendMessage = async (producer, topic) => {
 	}, 3000)
 
 }
-const clientId = "my-app"
-const brokers = ["localhost:9092"]
-const topic = "message-log" 
+const clientId = config.kafka.CLIENTID
+const brokers = config.kafka.BROKERS
+const topic = config.kafka.TOPIC
 const kafka = new Kafka({ clientId, brokers })
 const producer = kafka.producer()
 
